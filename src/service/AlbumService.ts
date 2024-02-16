@@ -21,4 +21,8 @@ export class AlbumService {
     async getAllAlbums(): Promise<Album[]>{
         return await this.repository.find()
     }
+
+    async getAlbumById(id: number): Promise<Album | null> {
+        return await this.repository.findOne({where: {id: id}})
+    }
 }

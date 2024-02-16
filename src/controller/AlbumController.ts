@@ -23,3 +23,14 @@ export const getAllAlbums = async (req: Request, res: Response) => {
         console.log(err)
     }
 }
+
+export const getAlbumById = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id as unknown as number
+        const album = await service.getAlbumById(id)
+        res.json(album)
+    } catch (err) {
+        res.status(500).json({ message: "Album não encontrado "})
+        console.log(err)
+    }
+}

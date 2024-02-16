@@ -14,6 +14,7 @@ AppDataSource.initialize().then(() => {
 
     app.post("/album", createAlbum)
     app.get("/album", getAllAlbums)
+    app.get("/album/:id", getAllAlbums)
 
     return app.listen(4000)
 })

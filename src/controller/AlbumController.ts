@@ -34,3 +34,20 @@ export const getAlbumById = async (req: Request, res: Response) => {
         console.log(err)
     }
 }
+
+export const darNota =  async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id as unknown as number
+        const updates = req.body
+        const updateAlbum = await service.darNota(id, updates)
+
+        if(!updateAlbum){
+            res.status(404).json({ message: "Album não encontrado"})
+        }
+
+        res.json(updateAlbum)
+    } catch (err) {
+        res.status(500).json({message: "Falha ao atualizar o album"})
+        console.log(err)
+    }
+}

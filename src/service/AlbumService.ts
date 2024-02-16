@@ -25,4 +25,15 @@ export class AlbumService {
     async getAlbumById(id: number): Promise<Album | null> {
         return await this.repository.findOne({where: {id: id}})
     }
+
+    async darNota(id: number, updates: Partial<Album>): Promise<Album | null> {
+        const album = await this.repository.findOne({where: {id: id}})
+        const result = await this.repository.update(id, updates)
+
+        if (result.affected === 0) {
+            return null
+        }
+
+        return await this.repository.findOne({where: {id: id}})
+    }
 }

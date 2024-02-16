@@ -13,3 +13,13 @@ export const createAlbum = async (req: Request, res: Response) => {
         console.log(err)
     }
 }
+
+export const getAllAlbums = async (req: Request, res: Response) => {
+    try {
+        const albums = await service.getAllAlbums()
+        res.json(albums)
+    } catch (err) {
+        res.status(500).json({ message: "Erro ao buscar albums "})
+        console.log(err)
+    }
+}

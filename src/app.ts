@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import { json } from "body-parser"
 import { AppDataSource } from "./data-source"
-import { createAlbum } from './controller/AlbumController'
+import { createAlbum, getAllAlbums } from './controller/AlbumController'
 
 AppDataSource.initialize().then(() => {
     const app = express()
@@ -13,6 +13,7 @@ AppDataSource.initialize().then(() => {
     })
 
     app.post("/album", createAlbum)
+    app.get("/album", getAllAlbums)
 
     return app.listen(4000)
 })

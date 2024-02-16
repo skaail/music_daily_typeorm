@@ -17,4 +17,8 @@ export class AlbumService {
 
         return await this.repository.save(novoAlbum)
     }
+
+    async getAllAlbums(): Promise<Album[]>{
+        return await this.repository.find()
+    }
 }

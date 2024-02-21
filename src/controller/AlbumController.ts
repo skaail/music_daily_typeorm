@@ -55,3 +55,21 @@ export const darNota =  async (req: Request, res: Response) => {
         console.log(err)
     }
 }
+
+export const getNotListenedAlbum = async (req: Request, res: Response) => {
+    res.set('Access-Control-Allow-Origin', '*')
+    
+    try {
+        const notListened = await service.getNotListenedAlbum()
+
+        if(notListened.length === 0){
+            res.status(200).json({ message: "Nenhum álbum para ouvir"})
+        }else{
+            res.json(notListened)
+        }
+        
+    } catch (err) {
+        res.status(500).json({ message: "Erro ao buscar albums"})
+        console.log(err)
+    }
+}

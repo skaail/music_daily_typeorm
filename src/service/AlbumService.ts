@@ -1,4 +1,4 @@
-import { Repository } from "typeorm"
+import { IsNull } from "typeorm"
 import { Album } from "../entity/Album"
 import { AppDataSource } from "../data-source"
 const albumArt = require( 'album-art')
@@ -19,7 +19,10 @@ export class AlbumService {
     }
 
     async getAllAlbums(): Promise<Album[]>{
-        return await this.repository.find()
+        const albums = await this.repository.find()
+        const nonNullAlbums = albums.filter(album => album.nota !== null);
+
+        return nonNullAlbums
     }
 
     async getAlbumById(id: number): Promise<Album | null> {
@@ -36,4 +39,9 @@ export class AlbumService {
 
         return await this.repository.findOne({where: {id: id}})
     }
+
+    async getNotListenedAlbum(): Promise<Album[]> {
+        return await this.repository.findBy({nota: IsNull()})
+    }
 }
+

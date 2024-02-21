@@ -15,6 +15,6 @@ export class Album {
     @Column()
     capa: string
 
-    @Column({nullable: true,})
-    nota?: number 
+    @Column({nullable: true})
+    nota?: number
 }

@@ -4,9 +4,11 @@ import { Request, Response } from 'express'
 const service = new AlbumService()
 
 export const createAlbum = async (req: Request, res: Response) => {
-    res.set('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
     try {
         const { nome, banda, nota } = req.body
+        console.log(nome, banda)
         const novoAlbum = await service.createAlbum(nome, banda, nota)
         res.status(201).json(novoAlbum)
     } catch(err) {

@@ -32,6 +32,7 @@ export class AlbumService {
 
     async createAlbum(nome: string, banda: string, nota?: number | undefined): Promise<Album>{
         const link = await getUri(nome)
+
         const capa = await getAlbumArt(nome, banda)
         const novoAlbum = this.repository.create({nome, banda, capa, link, nota})
 

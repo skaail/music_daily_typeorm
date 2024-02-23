@@ -5,8 +5,6 @@ const albumArt = require('album-art')
 const {getSpotifyAuthToken} = require('spotify-get-track-link')
 const axios = require('axios')
 
-
-
 async function getAlbumArt(nome:string, banda:string): Promise<string> {
     return await albumArt(banda, {album: nome})
 }
@@ -64,5 +62,16 @@ export class AlbumService {
     async getNotListenedAlbum(): Promise<Album[]> {
         return await this.repository.findBy({nota: IsNull()})
     }
+
+    async findRandomAlbum(): Promise<Album | undefined> {
+        const not_listened = await this.repository.findBy({nota: IsNull()})
+        const randomIndex = Math.floor(Math.random() * not_listened.length)
+        
+        const album = not_listened[randomIndex]
+        
+        return album
+      }
+
+    
 }
 

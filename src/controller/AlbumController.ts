@@ -1,5 +1,6 @@
-import { AlbumService } from "../service/AlbumService";
+import { AlbumService } from "../service/AlbumService"
 import { Request, Response } from 'express'
+import fs from 'fs'
 
 const service = new AlbumService()
 
@@ -74,4 +75,15 @@ export const getNotListenedAlbum = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Erro ao buscar albums"})
         console.log(err)
     }
+}
+
+export const getRandomAlbum = (req: Request, res: Response) => {
+    try {
+        const rawAlbum = fs.readFileSync('randomAlbum.json', 'utf-8');
+        const randomAlbum = JSON.parse(rawAlbum);
+        res.status(200).json(randomAlbum);
+      } catch (error) {
+        console.error('Erro ao ler o álbum aleatório:', error);
+        res.status(500).json({ message: 'Erro interno do servidor.' });
+      }
 }

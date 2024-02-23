@@ -1,10 +1,14 @@
 import express, { Request, Response } from "express"
 import { json } from "body-parser"
 import { AppDataSource } from "./data-source"
-import { createAlbum, darNota, getAllAlbums, getNotListenedAlbum } from './controller/AlbumController'
+import { createAlbum, darNota, getAllAlbums, getNotListenedAlbum, getRandomAlbum } from './controller/AlbumController'
+import cron from 'node-schedule'
+import { AlbumService } from "./service/AlbumService"
+import fs from 'fs'
 
 AppDataSource.initialize().then(() => {
     const app = express()
+    const albumService = new AlbumService()
 
     app.use(json())
 
@@ -20,12 +24,25 @@ AppDataSource.initialize().then(() => {
     })
 
     app.get("/album/recomendacao", getNotListenedAlbum)
+    app.get('/album/aleatorio', getRandomAlbum)
 
     app.post("/album", createAlbum)
     app.get("/album", getAllAlbums)
     app.get("/album/:id", getAllAlbums)
     app.put("/album/:id/", darNota)
     
+
+
+    cron.scheduleJob('* * * * *', async () => {
+    const randomAlbum = await albumService.findRandomAlbum();
+    if (randomAlbum) {
+        console.log('Álbum aleatório do dia:', randomAlbum);
+        fs.writeFileSync('randomAlbum.json', JSON.stringify(randomAlbum));
+        
+    } else {
+        console.log('Nenhum álbum encontrado.');
+    }
+    });
 
     return app.listen(4000)
 })

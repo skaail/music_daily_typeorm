@@ -5,10 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "@types/express": "^4.17.21",
+    "@types/node-schedule": "^2.1.6",
     "album-art": "^4.0.0",
     "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "node-schedule": "^2.1.1",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
     "spotify-get-track-link": "^1.1.2",
@@ -21,7 +24,7 @@
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "start": "ts-node ./src/app.ts",
-    "spotify": "ts-node ./src/background/spotify_link.ts"
+    "jobs": "ts-node ./src/jobs/createRandomAlbum.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.19"

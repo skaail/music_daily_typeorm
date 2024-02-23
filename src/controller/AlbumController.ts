@@ -7,7 +7,7 @@ export const createAlbum = async (req: Request, res: Response) => {
     res.set('Access-Control-Allow-Origin', '*')
     try {
         const { nome, banda, nota, link} = req.body
-        const novoAlbum = await service.createAlbum(nome, banda, link, nota)
+        const novoAlbum = await service.createAlbum(nome, banda, nota)
         res.status(201).json(novoAlbum)
     } catch(err) {
         res.status(500).json({message: "erro ao criar o album"})

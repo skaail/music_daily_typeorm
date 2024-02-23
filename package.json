@@ -6,10 +6,13 @@
   "dependencies": {
     "@types/express": "^4.17.21",
     "album-art": "^4.0.0",
+    "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
+    "spotify-get-track-link": "^1.1.2",
+    "spotify-url-info": "^3.2.13",
     "ts-node": "^10.9.2",
     "typeorm": "^0.3.20",
     "typescript": "^5.3.3"
@@ -17,7 +20,8 @@
   "scripts": {
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
-    "start": "ts-node ./src/app.ts"
+    "start": "ts-node ./src/app.ts",
+    "spotify": "ts-node ./src/background/spotify_link.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.19"

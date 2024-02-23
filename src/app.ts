@@ -33,7 +33,7 @@ AppDataSource.initialize().then(() => {
     
 
 
-    cron.scheduleJob('* * * * *', async () => {
+    cron.scheduleJob('0 0 * * *', async () => {
     const randomAlbum = await albumService.findRandomAlbum();
     if (randomAlbum) {
         console.log('Álbum aleatório do dia:', randomAlbum);

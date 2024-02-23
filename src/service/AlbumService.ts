@@ -11,11 +11,11 @@ async function getAlbumArt(nome:string, banda:string): Promise<string> {
     return await albumArt(banda, {album: nome})
 }
 
-async function getUri(nome: string): Promise<string>{
+async function getUri(nome: string, banda: string): Promise<string>{
     const token = await getSpotifyAuthToken("47d629387eff4cc2a731e7f2c290302e", "5bcf17b2ac36460480687f83171004ae")
 
 	const res = await axios.get(
-		`https://api.spotify.com/v1/search?q=${nome}&type=album&limit=20`,
+		`https://api.spotify.com/v1/search?q=${nome}%252520${banda}&type=album&type=album&limit=20`,
 		{
 			headers: {
 				'Authorization': `Bearer ${token}`,
@@ -31,7 +31,7 @@ export class AlbumService {
     repository = AppDataSource.getRepository(Album)
 
     async createAlbum(nome: string, banda: string, nota?: number | undefined): Promise<Album>{
-        const link = await getUri(nome)
+        const link = await getUri(nome, banda)
 
         const capa = await getAlbumArt(nome, banda)
         const novoAlbum = this.repository.create({nome, banda, capa, link, nota})

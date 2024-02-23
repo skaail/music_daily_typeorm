@@ -31,9 +31,9 @@ export class AlbumService {
     repository = AppDataSource.getRepository(Album)
 
     async createAlbum(nome: string, banda: string, nota?: number | undefined): Promise<Album>{
-        const capa = await getAlbumArt(nome, banda)
         const link = await getUri(nome)
-        const novoAlbum = this.repository.create({nome, banda, capa, link, nota })
+        const capa = await getAlbumArt(nome, banda)
+        const novoAlbum = this.repository.create({nome, banda, capa, link, nota})
 
         return await this.repository.save(novoAlbum)
     }

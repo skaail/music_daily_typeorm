@@ -4,9 +4,19 @@ import { AppDataSource } from "./data-source"
 import { createAlbum, darNota, getAllAlbums, getNotListenedAlbum, getRandomAlbum } from './controller/AlbumController'
 import cron from 'node-schedule'
 import { AlbumService } from "./service/AlbumService"
-import fs from 'fs'
+import { Album } from "./entity/Album"
+
+export var album_random: Album
+
+export function getRandom(){
+    return album_random
+}
+
+
 
 AppDataSource.initialize().then(() => {
+    
+
     const app = express()
     const albumService = new AlbumService()
 
@@ -29,15 +39,13 @@ AppDataSource.initialize().then(() => {
     app.post("/album", createAlbum)
     app.get("/album", getAllAlbums)
     app.get("/album/:id", getAllAlbums)
-    app.put("/album/:id/", darNota)
+    app.put("/album/:id/", getRandomAlbum)
     
-
-
-    cron.scheduleJob('10 16 * * *', async () => {
+    
+    cron.scheduleJob('* * * * * *', async () => {
     const randomAlbum = await albumService.findRandomAlbum();
     if (randomAlbum) {
-        console.log('Álbum aleatório do dia:', randomAlbum);
-        fs.writeFileSync('randomAlbum.json', JSON.stringify(randomAlbum));
+        album_random = randomAlbum
         
     } else {
         console.log('Nenhum álbum encontrado.');

@@ -15,6 +15,9 @@ export class Album {
     @Column()
     capa: string
 
+    @Column()
+    link: string
+
     @Column({nullable: true})
     nota?: number
 }

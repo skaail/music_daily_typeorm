@@ -1,6 +1,6 @@
 import { IsNull } from "typeorm"
-import { Album } from "../entity/Album"
 import { AppDataSource } from "../data-source"
+import { Album } from "../entity/Album"
 const albumArt = require( 'album-art')
 
 async function getAlbumArt(nome:string, banda:string): Promise<string> {
@@ -11,9 +11,9 @@ async function getAlbumArt(nome:string, banda:string): Promise<string> {
 export class AlbumService {
     repository = AppDataSource.getRepository(Album)
 
-    async createAlbum(nome: string, banda: string, nota?: number | undefined): Promise<Album>{
+    async createAlbum(nome: string, banda: string, link: string, nota?: number | undefined): Promise<Album>{
         const capa = await getAlbumArt(nome, banda)
-        const novoAlbum = this.repository.create({nome, banda, capa , nota })
+        const novoAlbum = this.repository.create({nome, banda, capa, link, nota })
 
         return await this.repository.save(novoAlbum)
     }

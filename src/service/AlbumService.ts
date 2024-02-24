@@ -1,4 +1,4 @@
-import { IsNull } from "typeorm"
+import { DeleteResult, IsNull } from "typeorm"
 import { AppDataSource } from "../data-source"
 import { Album } from "../entity/Album"
 const albumArt = require('album-art')
@@ -70,7 +70,14 @@ export class AlbumService {
         const album = not_listened[randomIndex]
         
         return album
-      }
+    }
+
+    async deleteAlbumById(id: number): Promise<DeleteResult> {
+        const album = await this.repository.findOne({where: {id: id}})
+        const res = await this.repository.delete({id: album?.id})
+
+        return res
+    }
 
     
 }

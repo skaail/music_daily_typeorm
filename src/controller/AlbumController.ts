@@ -86,3 +86,14 @@ export const getRandomAlbum = (req: Request, res: Response) => {
         res.status(500).json({ message: 'Erro interno do servidor.' });
       }
 }
+
+export const deleteAlbumById = async (req: Request, res:Response) => {
+    try {
+        const id = req.params.id as unknown as number
+        const album = await service.deleteAlbumById(id)
+        res.json(album)
+    } catch (error) {
+        console.error('Erro ao ler o álbum aleatório:', error);
+        res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}

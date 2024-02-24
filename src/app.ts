@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import { json } from "body-parser"
 import { AppDataSource } from "./data-source"
-import { createAlbum, darNota, getAllAlbums, getNotListenedAlbum, getRandomAlbum } from './controller/AlbumController'
+import { createAlbum, darNota, getAlbumById, getAllAlbums, getNotListenedAlbum, getRandomAlbum } from './controller/AlbumController'
 import cron from 'node-schedule'
 import { AlbumService } from "./service/AlbumService"
 import { Album } from "./entity/Album"
@@ -38,8 +38,8 @@ AppDataSource.initialize().then(() => {
 
     app.post("/album", createAlbum)
     app.get("/album", getAllAlbums)
-    app.get("/album/:id", getAllAlbums)
-    app.put("/album/:id/", getRandomAlbum)
+    app.get("/album/:id", getAlbumById)
+    app.put("/album/:id/", darNota)
     
     
     cron.scheduleJob('* * * * * *', async () => {

@@ -42,15 +42,14 @@ AppDataSource.initialize().then(() => {
     app.put("/album/:id/", getRandomAlbum)
     
     
-    cron.scheduleJob('0 0 * * *', async () => {
-    const randomAlbum = await albumService.findRandomAlbum();
-    if (randomAlbum) {
-        album_random = randomAlbum
-        
-    } else {
-        console.log('Nenhum álbum encontrado.');
-    }
-    });
+    //cron.scheduleJob('0 0 * * *', async () => {
+    //const randomAlbum = await albumService.findRandomAlbum();
+    //if (randomAlbum) {
+    //    album_random = randomAlbum
+    //} else {
+    //   console.log('Nenhum álbum encontrado.');
+    //}
+    //});
 
     return app.listen(4000)
 })

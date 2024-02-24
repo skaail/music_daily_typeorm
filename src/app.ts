@@ -42,7 +42,7 @@ AppDataSource.initialize().then(() => {
     app.put("/album/:id/", getRandomAlbum)
     
     
-    cron.scheduleJob('3 26 * * *', async () => {
+    cron.scheduleJob('* * * * * *', async () => {
     const randomAlbum = await albumService.findRandomAlbum();
     if (randomAlbum) {
         album_random = randomAlbum

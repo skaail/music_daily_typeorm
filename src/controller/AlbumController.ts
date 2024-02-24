@@ -9,7 +9,6 @@ export const createAlbum = async (req: Request, res: Response) => {
 
     try {
         const { nome, banda, nota } = req.body
-        console.log(nome, banda)
         const novoAlbum = await service.createAlbum(nome, banda, nota)
         res.status(201).json(novoAlbum)
     } catch(err) {
@@ -79,7 +78,6 @@ export const getNotListenedAlbum = async (req: Request, res: Response) => {
 
 export const getRandomAlbum = (req: Request, res: Response) => {
     try {
-        console.log(album_random)
         res.json(album_random)
       } catch (error) {
         console.error('Erro ao ler o álbum aleatório:', error);

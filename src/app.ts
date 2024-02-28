@@ -43,10 +43,12 @@ AppDataSource.initialize().then(() => {
 
     app.delete("/album/:id", deleteAlbumById)
     
+    let time  = '* * * * * *'
     
-    cron.scheduleJob('* * * * * *', async () => {
+    cron.scheduleJob(time, async () => {
     const randomAlbum = await albumService.findRandomAlbum();
     if (randomAlbum) {
+        time = '0 0 * * *'
         album_random = randomAlbum
     } else {
        console.log('Nenhum álbum encontrado.');

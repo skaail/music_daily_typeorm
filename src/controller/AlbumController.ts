@@ -5,8 +5,6 @@ import { album_random } from "../app"
 const service = new AlbumService()
 
 export const createAlbum = async (req: Request, res: Response) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     try {
         const { nome, banda, nota } = req.body
         const novoAlbum = await service.createAlbum(nome, banda, nota)
@@ -18,7 +16,6 @@ export const createAlbum = async (req: Request, res: Response) => {
 }
 
 export const getAllAlbums = async (req: Request, res: Response) => {
-    res.set('Access-Control-Allow-Origin', '*')
     try {
         const albums = await service.getAllAlbums()
         res.json(albums)
@@ -29,7 +26,6 @@ export const getAllAlbums = async (req: Request, res: Response) => {
 }
 
 export const getAlbumById = async (req: Request, res: Response) => {
-    res.set('Access-Control-Allow-Origin', '*')
     try {
         const id = req.params.id as unknown as number
         const album = await service.getAlbumById(id)
@@ -41,7 +37,6 @@ export const getAlbumById = async (req: Request, res: Response) => {
 }
 
 export const darNota =  async (req: Request, res: Response) => {
-    res.set('Access-Control-Allow-Origin', '*')
     try {
         const id = req.params.id as unknown as number
         const updates = req.body
@@ -59,8 +54,6 @@ export const darNota =  async (req: Request, res: Response) => {
 }
 
 export const getNotListenedAlbum = async (req: Request, res: Response) => {
-    res.set('Access-Control-Allow-Origin', '*')
-    
     try {
         const notListened = await service.getNotListenedAlbum()
 
@@ -93,5 +86,22 @@ export const deleteAlbumById = async (req: Request, res:Response) => {
     } catch (error) {
         console.error('Erro ao ler o álbum aleatório:', error);
         res.status(500).json({ message: 'Erro interno do servidor.' });
+    }
+}
+
+export const updateAlbum = async (req: Request, res:Response) => {
+    try {
+        const id = req.params.id as unknown as number
+        const updates = req.body
+        const updateAlbum = await service.updateAlbum(id, updates)
+
+        if(!updateAlbum){
+            res.status(404).json({ message: "Album não encontrado"})
+        }
+
+        res.json(updateAlbum)
+    } catch (err) {
+        res.status(500).json({message: "Falha ao atualizar o album"})
+        console.log(err)
     }
 }

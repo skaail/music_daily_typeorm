@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express"
 import { json } from "body-parser"
 import { AppDataSource } from "./data-source"
-import { createAlbum, darNota, deleteAlbumById, getAlbumById, getAllAlbums, getNotListenedAlbum, getRandomAlbum, updateAlbum } from './controller/AlbumController'
+import { createAlbum, darNota, deleteAlbumById, getAlbumById, getAllAlbums, getImage, getNotListenedAlbum, getRandomAlbum, updateAlbum } from './controller/AlbumController'
 import cron from 'node-schedule'
 import { AlbumService } from "./service/AlbumService"
 import { Album } from "./entity/Album"
@@ -43,6 +43,8 @@ AppDataSource.initialize().then(() => {
     app.patch("/album/:id/", updateAlbum)
 
     app.delete("/album/:id", deleteAlbumById)
+
+    app.post("/capa", getImage)
     
     let time  = '* * * * * *'
     

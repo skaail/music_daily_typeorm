@@ -28,6 +28,11 @@ async function getUri(nome: string, banda: string): Promise<string>{
 export class AlbumService {
     repository = AppDataSource.getRepository(Album)
 
+    async getImage(nome: string, banda: string): Promise<String>{
+        const capa = await getAlbumArt(nome, banda)
+        return capa
+    }
+
     async createAlbum(nome: string, banda: string, nota?: number | undefined): Promise<Album>{
         const link = await getUri(nome, banda)
 

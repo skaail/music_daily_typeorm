@@ -105,3 +105,14 @@ export const updateAlbum = async (req: Request, res:Response) => {
         console.log(err)
     }
 }
+
+export const getImage = async (req: Request, res:Response) => {
+    try {
+        const { nome, banda } = req.body
+        const capa = await service.getImage(nome, banda)
+        res.status(201).json(capa)
+    } catch(err) {
+        res.status(500).json({message: "erro ao procurar imagem"})
+        console.log(err)
+    }
+}
